@@ -1,20 +1,28 @@
 
+import { useEffect, useState } from "react";
 import "./App.css";
 
 const StepsCompleted: React.FC<{ progress: number }> = ({ progress }) => {
+
+  const[animatedProgress,setAnimatedProgress]=useState(0);
+
+  useEffect(()=>{
+    setTimeout(()=>setAnimatedProgress(progress) ,100)
+  },[progress])
   return (
     <div className="outer">
       <div
         className="inner"
         style={{
-           width: `${progress}%`,
-          color: progress < 5 ? "black" : "white",
+          //  width: `${progress}%`,
+          transform:`translateX(${animatedProgress-100}%)`,
+          color: animatedProgress < 5 ? "black" : "white",
         }}
         role="progressbar"
         aria-valuemin={0}
         aria-valuenow={progress}
       >
-        {progress}%
+        {animatedProgress}%
       </div>
     </div>
   );
